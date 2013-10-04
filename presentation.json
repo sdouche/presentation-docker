@@ -1,0 +1,12 @@
+{
+        "title": "Docker",
+        "author": "Sébastien Douche",
+        "theme": "memories",
+        "duration": 40,
+        "sections": {
+		"intro": "Introduction",
+		"linux": "Namespaces & Control Groups",
+		"lxc": "LXC",
+		"docker": "Docker"
+        	}
+}
