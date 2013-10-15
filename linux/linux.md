@@ -72,29 +72,48 @@ Très pratique car permet de suivre finement des process (systemd l'utilise) et 
 Un cgroup créé des pseudo-fichiers pour manipuler le groupe:
 
 ```bash
-root@srv1:/sys/fs/cgroup# ls *1
-blkio
-cpu
-cpuacct
-cpuset
-devices
-freezer
-hugetlb
-memory
-perf_event
+$ mkdir /sys/fs/cgroup/test
+$ echo 123 > /sys/fs/cgroup/test/tasks
+$ echo 50000000 > /sys/fs/cgroup/memory.limit_in_bytes
 ```
 
-Un process se place dans le groupe de son parent. 
+!SLIDE
+# Cgroup memory
+
+Surveille les pages utilisées pour chaque groupe :
+
+* fichier (lecture/écriture, mmap, swap)
+* anonyme (stack, heap, anonymous mmap)
+* active / inactive
+
+*Note* : Les pages peuvent être partagées ou individuelles.
 
 !SLIDE
-# Limitation des ressources
+# Cgroup cpu
 
-On peut limiter beaucoup de choses :
+Surveille l'utilisation de la CPU :
 
-* la mémoire
-* CPU
-* Block I/O
-* ...
+* poids par cgroup
+* spécifier des CPUs pour un cgroup
+
+*Note* : On peut mettre des CPUs en réserve.
+
+!SLIDE
+# Cgroup block
+
+Surveille l'utilisation des I/O :
+
+* poids par cgroup
+* limite sur chaque device
+
+!SLIDE
+# Cgroup device
+
+Surveille l'utilisation des devices :
+
+* lecture / écriture
+* octets /s ou opérations /s
+* permissions lecture/écriture/mknod
 
 !SLIDE
 # AUFS
