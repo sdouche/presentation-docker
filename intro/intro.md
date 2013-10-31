@@ -86,6 +86,8 @@ Note : Il fonda la société SeaLand, racheté en 1999 par Maersk, leader mondia
 * 18/07/2013 : Version 0.5
 * 23/08/2013 : Version 0.6
 * 23/09/2013 : Version 0.6.3
+* 16/10/2013 : Version 0.6.4
+* 29/10/2013 : Version 0.6.5
 
 !SLIDE
 # Projet actif
