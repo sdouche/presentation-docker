@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
     <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
-    <title>Keynote Orange</title>
+    <title>Introduction à Docker</title>
     <link rel="stylesheet" type="text/css" href="theme.css">
   </head>
   <body>
@@ -13,9 +13,9 @@ name: inverse
 layout: true
 class: center, middle, inverse
 ---
-# Virtualisation
+# Introduction à Docker
 ## Sébastien Douche @sdouche
-.footnote[https://github.com/sdouche/presentation-virtualisation]
+.footnote[https://github.com/sdouche/presentation-docker]
 ---
 layout: false
 .left-column[
@@ -46,125 +46,210 @@ layout: false
 ]
 ---
 template: inverse
-# Objectif de cette soirée
----
-class: center, middle
-## Vous donnez un peu de culture .blue[admin]
----
-class: center, middle
-## Je ne suis pas un spécialiste de la virtualisation, juste un grand utilisateur.
----
----
-# Quel problème veut il résoudre ?
-
-Avec la multiplication des stacks (applicatifs, OS, plateformes), il devient fastidieux de gérer les installations.
-
----
 # Objectif
+Automatiser le déploiement d'environnements sous forme de conteneurs *légers*, *portables* et *auto-suffisants*.
 
-Automatiser le déploiement d'environnements sous forme de :
-
-* conteneur léger
-* portable
-* auto-suffisant
-* qui peut fonctionner un peu partout
-
-http://www.docker.io
-
+.footnote[http://www.docker.io]
 ---
-# Cas d'utilisation
+class: center, middle
+## Quel est le problème ?
 
-* Environnement de développement
-* Deploiement
-* Lancement des tests
-* Test du système
-
---- full
-
-![](vm-vs-container.jpeg)
-
---- full
-
-![](container.jpeg)
-
---- full
-
-![](container2.jpeg)
-
+![](img/the_challenge.jpeg)
 ---
+class: center, middle
+## La solution Docker
+
+![](img/docker_container.jpeg)
+---
+class: center, middle
+![](img/container.jpeg)
+---
+class: center, middle
+![](img/container2.jpeg)
+---
+template: inverse
 # Histoire du conteneur
-
+---
+class: middle
 Le premier bateau porte-conteneur, le Ideal-X, part le 26 avril 1956 du port de Newark (New Jersey) vers le port de Houston (Texas). A son bord, 58 conteneurs de 35 pieds.
 
-*Note* : 35 pieds était le standard USA des camions.
-
---- full
-
-![](ideal-x.jpeg)
-
+.footnote[35 pieds était le standard USA des camions]
 ---
-# Histoire du conteneur
-
+class: center, middle
+![](img/ideal-x.jpeg)
+---
+class: middle
 Invention de Malcom McLean (1914-2001), magnat dans le transport routier, qui avait calculé que le coût passerait de 5.83$ la tonne à 0.16$ en passant par Ideal-X. Les containeurs ont donc **réduit les coûts de transport cargo de 90%**.
 
-Note : Il fonda la société SeaLand, racheté en 1999 par Maersk, leader mondial du conteneur.
-
---- full
-
-![](book.jpeg)
-
+Il fonda la société SeaLand, racheté en 1999 par Maersk, leader mondial du conteneur
 ---
+class: center, middle
+![](img/book.jpeg)
+---
+template: inverse
 # Caractéristiques d'un conteneur
-
-* Agnostique sur le contenu
-* Agnostique sur le transporteur
-* isolation
-* Automatisation
-
 ---
-# Projet jeune
+class: center, middle
+## Agnostique sur le contenu
+---
+class: center, middle
+## Agnostique sur le transporteur
+---
+class: center, middle
+## Isolation
+---
+class: center, middle
+## Automatisation
+---
+template: inverse
+# Docker
+---
+## Projet jeune
 
 * 18/01/2013 : 1er commit
 * 01/02/2013 : 1ere démo en ligne
 * 21/03/2013 : 1ere démo à Pycon US
+* 23/03/2013 : .blue[Version 0.1]
 * 26/03/2013 : Ouverture du dépôt GitHub
-* 03/06/2013 : Version 0.4
+* 23/04/2013 : .blue[Version 0.2]
+* 06/05/2013 : .blue[Version 0.3]
+* 03/06/2013 : .blue[Version 0.4]
 * 25/06/2013 : Rejoint la fondation Linux
-* 18/07/2013 : Version 0.5
-* 23/08/2013 : Version 0.6
-* 23/09/2013 : Version 0.6.3
-
+* 18/07/2013 : .blue[Version 0.5] (top, mount)
+* 23/08/2013 : .blue[Version 0.6] (-privileged, LXC conf)
+* 19/09/2013 : Partenariat avec Red Hat
+* 29/10/2013 : Société renommée en Docker
+* 26/11/2013 : .blue[Version 0.7] (noyau standard, device-mapper, name, links)
+* 21/01/2014 : Levée de 15M$
+* 04/02/2014 : .blue[Version 0.8] (MacOSX, BTRFS experimental, ONBUILD)
 ---
-# Projet actif
+## Mais très actif
 
 Dans le Top 15 sur GitHub.
 
-Au 25/09/2013, 3389 commits, 975 PR et 169 contributeurs.
+Au 25/09/2013: 3389 commits, 975 PR et 169 contributeurs.
+
+Au 13/02/2014: 6183 commits, 4103 PR et 334 contributeurs.
 
 ---
-# Pré-requis
+## Pré-requis
 
-Pour l'instant, Ubuntu est la cible privilégiée :
-
-* Kernel Linux 3.8+ (avec Cgroups et namespaces activés)
-* AUFS
+* Kernel 3.8+ (avec Cgroups et namespaces) ou RHEL 2.6.32
+* AUFS (ou device-mapper / VFS)
 * LXC
 * 64 bits
 
+http://docs.docker.io/en/latest/installation/kernel/
 ---
+template: inverse
 # LXC
-
-"chroot on steroids”
-
 ---
-# Installation de LXC
+class: center, middle
+## Permet d'.blue[isoler] l'exécution des applications dans des contexte d'éxécution (VE).
+
+### "chroot on steroids”
+---
+class: center, middle
+![](img/archiisolateur.png)
+---
+class: center, middle
+
+## L'intérêt du conteneur est son faible footprint
+---
+template: inverse
+## Namespace
+---
+class: center, middle
+## Service fournit par le noyau Linux pour gérer l'isolation
+---
+## Le Mount namespace (Linux 2.4.19)
+
+Gère l'isolation des points de montage du système de fichier vu par un groupe de process :
+
+* les points de montage ne sont plus globaux mais spécifique au namespace
+* les points de montage peuvent être propagés
+* racine propre (chroot)
+---
+## Le PID namespace (Linux 2.6.24)
+
+Gère l'isolation des ID de process :
+
+* PID 1 init-like par namespace
+* chaque namespace a propre numération PID (isolation du hôte)
+* le process d'un namespace ne peut envoyer de systemcall sur un autre process d'un autre PID namespace
+* gestion de pseudo-filesystem (ex : /proc) vu par le PID namespace qui le monte
+* un process possède 2 PID : un dans le namespace et un en dehors (process vu de l'hôte)
+---
+## Le Net namespace (Linux 2.6.19-2.6.24)
+
+Gère l'isolation du réseau. Chacun possèdant :
+
+* ses interfaces
+* ses ports
+* sa table de routage
+* ses règles de firewall (iptables)
+* son répertoire /proc/net
+* INADDR_ANY (0.0.0.0)
+
+.footnote[Il est possible de créer des «pair interfaces» (visible de l'intérieur et de l'extérieur)]
+---
+## Le User namespace (Linux 2.6.23-3.8)
+
+Gère l'isolation des utilisateurs et des groupes en :
+
+* séparant les droits selon les différents namespaces
+* rendant sûr le partage de namespace à des process sans privilège
+---
+## Le IPC namespace (Linux 2.6.19-2.6.30)
+
+Gère l'isolation des ressources IPC :
+
+- semaphores
+- message queues
+- shared memory segments
+
+.footnote[Depuis Linux 2.6.30, il gère aussi les files de messages POSIX]
+---
+## Le UTS namespace (Linux 2.6.19)
+
+Gère l'isolation des identifiants de nom et de domaine.
+
+UTS vient de la structure "utsname" passée à l'appel système uname(). UTS voulant dire "UNIX Time-sharing System".
+---
+template: inverse
+## Control Groups (cgroups)
+---
+class: center, middle
+## Service fournit par le noyau pour gérer la limitation de ressource
+---
+class: center, middle
+## On peut voir cela comnme un ulimit pour un groupe de process.
+---
+class: center, middle
+## Très pratique car permet de suivre finement des process (systemd l'utilise) et plus généralement pour limiter vos process.
+---
+## Pseudo-fichiers pour manipuler le groupe
+
+```bash
+# root@srv1:/sys/fs/cgroup# ls -1
+blkio
+cpu
+cpuacct
+cpuset
+devices
+freezer
+hugetlb
+memory
+perf_event
+```
+---
+## Installation de LXC
 
 ```bash
 $ sudo aptitude install lxc lxc-templates
 ```
-
 ---
-# Templates
+## Templates
 
 ```bash
 $ dpkg -L lxc-templates
@@ -181,9 +266,8 @@ $ dpkg -L lxc-templates
 /usr/share/lxc/templates/lxc-ubuntu
 /usr/share/lxc/templates/lxc-ubuntu-cloud
 ```
-
 ---
-# Verification du noyau
+## Verification du noyau
 
 ```bash
 $ sudo lxc-checkconfig
@@ -214,9 +298,8 @@ Macvlan: enabled
 Vlan: enabled
 File capabilities: enabled
 ```
-
 ---
-# Exemple de création de VM
+## Exemple de création de VM
 
 ```bash
 $ sudo lxc-create -n test -t ubuntu
@@ -230,24 +313,41 @@ I: Retrieving Release.gpg
 'ubuntu' template installed
 'test' created
 ```
-
 ---
-# Lancement
+## Lancement
 
 ```bash
 $ sudo lxc-start -name test
-```---
-# Terminologie
+```
+---
+template: inverse
+# AUFS
+---
+class: middle
+## Supporte le mode union
+
+```bash
+$ mount -t aufs -o dirs=/path/to/files1:/path/to/files2 none /path/to/files
+```
+
+## Supporte le Copy On Write (COW)
+```bash
+$ mount -t aufs -o  br=/tmp=rw:/bin:ro /srv
+```
+---
+template: inverse
+# Docker
+---
+## Terminologie
 
 Quelques mots clés :
 
-* index : répertoire public
-* image : snapshot d'un conteneur
+* index : répertoire public (https://index.docker.io/)
+* image : conteneur en lecture seule (snapshot)
 * conteneur : élement manipulable
-* run : créer un conteneur (à partir d'une image) et lancer une commande
-
+* run : créer un conteneur (à partir d'une image)
 ---
-# Installation Ubuntu
+## Installation Ubuntu
 
 ```bash
 sudo sh -c "curl https://get.docker.io/gpg | apt-key add -"
@@ -258,18 +358,16 @@ sudo apt-get install lxc-docker
 ```
 
 *Note* : Docker est écrit en Go, cela veut dire qu'il n'installe qu'un binaire.
-
-
 ---
-# Lancement de Docker
+## Lancement de Docker
 
 ```bash
 $ sudo /usr/bin/docker -d &
 ```
 ---
-# Vérification de l'installation
+## Vérification de l'installation
 
-```bash
+```xml
 $ docker
 Usage: docker [OPTIONS] COMMAND [arg...]
 A self-sufficient runtime for linux containers.
@@ -296,97 +394,118 @@ Commands:
     ps        List containers
 ...
  ```
-
 ---
-# Commande search
+## Commande search
 
-Rechercher une image avec un mot clé :
+Rechercher une image :
 
-```bash
+```xml
 $ sudo docker search ubuntu
-Found 25 results matching your query ("ubuntu")
-NAME               DESCRIPTION
-base               Another general use Ubuntu base image. Tags available are: latest, quantal (12.10)
-ubuntu             General use Ubuntu base image. Tags available are: latest, quantal (12.10), precise (12.04)
-boxcar/raring      Ubuntu Raring 13.04 suitable for testing vagrant-shell
+NAME                       DESCRIPTION       STARS     OFFICIAL   TRUSTED
+stackbrew/ubuntu           XXX               34
+...
+crashsystems/gitlab-docker XXX               11                   [OK]
+dockerfile/ubuntu          XXX               7                    [OK]
 ...
 ```
 
+Officiel : provient de la société Docker
+
+Trusted : traçabilité
+
 ---
-# Commande pull
+## Commande pull
 
-Récupération d'une image Ubuntu :
+Récupération d'une image Ubuntu (par défaut avec le tag *lastest*) :
 
-```bash
-$ sudo docker pull ubuntu
-Pulling repository ubuntu
-8dbd9e392a96: Download complete
-b750fe79269d: Download complete
-27cf78414709: Download complete
-
+```xml
+$ sudo docker pull stackbrew/ubuntu
+Pulling repository stackbrew/ubuntu
+3aa646e4f1d2: Download complete
+0e5997dad26c: Download complete
+ddc094db4e2b: Download complete
+24ba2ee5d982: Download complete
+511136ea3c5a: Download complete
+b74728ce6435: Download complete
+46e4dee27895: Download complete
+cc7385a89304: Download complete
+0ce1be727978: Download complete
 ```
-
 ---
-# Commande images
+## Commande history
 
-```bash
+Vérification de son contenu :
+```xml
+$ sudo docker history stackbrew/ubuntu
+IMAGE          CREATED        CREATED BY                       SIZE
+3aa646e4f1d2   8 weeks ago    /bin/sh -c #(nop) ADD p...       125.9 MB
+b74728ce6435   8 weeks ago    /bin/sh -c #(nop) MAINT...       0 B
+511136ea3c5a   8 months ago                                    0 B
+```
+---
+## Commande images
+
+Lister les images :
+```xml
 $ sudo docker images
-REPOSITORY     TAG         ID               CREATED          SIZE
-ubuntu         precise     8dbd9e392a96     5 months ago     131.5 MB (virtual 131.5 MB)
-ubuntu         quantal     b750fe79269d     6 months ago     24.65 kB (virtual 180.1 MB)
-
-
+REPOSITORY          TAG       IMAGE ID       CREATED        VIRTUAL SIZE
+stackbrew/ubuntu    13.10     24ba2ee5d982   8 weeks ago    144.6 MB
+stackbrew/ubuntu    saucy     24ba2ee5d982   8 weeks ago    144.6 MB
+stackbrew/ubuntu    raring    0e5997dad26c   8 weeks ago    133.6 MB
+stackbrew/ubuntu    13.04     0e5997dad26c   8 weeks ago    133.6 MB
+stackbrew/ubuntu    12.10     ddc094db4e2b   8 weeks ago    127.6 MB
+stackbrew/ubuntu    quantal   ddc094db4e2b   8 weeks ago    127.6 MB
+stackbrew/ubuntu    12.04     3aa646e4f1d2   8 weeks ago    125.9 MB
+stackbrew/ubuntu    latest    3aa646e4f1d2   8 weeks ago    125.9 MB
+stackbrew/ubuntu    precise   3aa646e4f1d2   8 weeks ago    125.9 MB
+```
 ---
-# Commande run
+## Commande run (1)
 
 Lancement d'un shell :
 
-```bash
-sudo docker run -i -t ubuntu /bin/bash
+```xml
+sudo docker run -i -t stackbrew/ubuntu /bin/bash
 root@419eed6ff306:/#
 ```
-
 ---
-# Commande run
+## Commande run (2)
 
 Lancer une commande :
 
-```bash
-$ sudo docker run ubuntu /bin/echo hello world
+```xml
+$ sudo docker run stackbrew/ubuntu /bin/echo hello world
 hello world
 ```
-
 ---
-# Commande run
+## Commande run (3)
 
 Lancer une application :
 
-```bash
-$ ID=$(sudo docker run -d ubuntu /bin/sh \
+```xml
+$ ID=$(sudo docker run -d stackbrew/ubuntu /bin/sh \
                  -c "while true; do echo hello world; sleep 1; done")
 $ echo $ID
 f684fc88aec3
 ```
-
 ---
-# Commande ps
+## Commande ps
 
-Lister les conteneurs qui tournent :
+Lister les conteneurs lançés :
 
-```bash
+```xml
 $ sudo docker ps
-ID                  IMAGE               COMMAND                CREATED
-f684fc88aec3        ubuntu:latest       /bin/sh *c while tru   33 seconds ago
+ID             IMAGE                    COMMAND                CREATED
+f684fc88aec3   stackbrew/ubuntu:latest  /bin/sh *c while tru   33s ago
 ```
 
-*Note* : option -a pour voir tous les conteneurs.
-
+**Note** : option -a pour voir tous les conteneurs.
 ---
-# Commande logs
+## Commande logs
 
 Afficher la console :
 
-```bash
+```xml
 $ docker logs f684fc88aec3
 hello world
 hello world
@@ -394,89 +513,83 @@ hello world
 hello world
 hello world
 ```
-
 ---
-# Commande attach
+## Commande attach
 
 Attacher un conteneur :
 
-```bash
+```xml
 $ docker attach f684fc88aec3
 hello world
 hello world
 hello world
 ```
-
 ---
-# Commande stop
+## Commande stop
 
 Arrêter un conteneur :
 
-```bash
+```xml
 $ docker stop f684fc88aec3
 ```
 
-*Note* : la commande pour lancer est... start.
-
-
+**Note** : la commande pour lancer est... start.
 ---
-# Exposer un port
+## Exposer un port
 
-Associer le port 8888 de la machine hôte avec le port 80 du conteneur :
+Associer un port du conteneur avec un port de la machine hôte :
 
-```bash
+```xml
 $ sudo docker run -d -p 8888:80 ubuntu
 ```
 
+**Note** : par défaut, les ports du conteneur ne sont accessibles que depuis la machine hôte
 ---
-# Exposer un volume
+## Exposer un volume
 
-Monter le répertoire /etc d'un autre conteneur :
+Monter le répertoire d'un autre conteneur :
 
-```bash
-$ ID=(sudo docker run -d -v /etc ubuntu)
-$ sudo docker run -d -volumes-from=$ID ubuntu
+```xml
+$ ID=(sudo docker run -d -v /srv stackbrew/ubuntu)
+$ sudo docker run -d -volumes-from=$ID stackbrew/ubuntu
 ```
-
 ---
-# Commande commit
+## Commande commit
 
-La commande commit enregistre la différence entre l'image et le conteneur :
+Enregistre la différence entre l'image et le conteneur :
 
-```bash
-$ sudo docker run -i -t ubuntu /bin/bash
+```xml
+$ sudo docker run -i -t stackbrew/ubuntu /bin/bash
 root@419eed6ff306:/# apt-get install nginx
 ...
 $ sudo docker commit -m "Ubuntu with Nginx" f684fc88aec3 sdouche/nginx
 ```
-
 ---
+template: inverse
 # Dockerfile
-
-Langage de script pour automatiser la création d'images.
+---
+class: center, middle
+## Langage de script pour automatiser la création d'images.
 
 Tutorial : http://www.docker.io/learn/dockerfile/
 
 ---
-# Exemple
+## Exemple simple
 
-Une version simple :
-
-```
+```xml
 FROM ubuntu:quantal
 MAINTAINER Sebastien Douche sdouche@gmail.com
-RUN echo "deb http://fr.archive.ubuntu.com/ubuntu quantal main restricted universe multiverse" \
+RUN echo "deb http://fr.archive.ubuntu.com/ubuntu quantal main " \
           > /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y nginx
 ENTRYPOINT ["nginx"]
 EXPOSE 80
 ```
-
 ---
-# Résultat
+## Résultat
 
-```bash
+```xml
 $ sudo docker build -t sdouche/nginx .
 Uploading context 10240 bytes
 Step 1 : FROM ubuntu
@@ -484,7 +597,7 @@ Step 1 : FROM ubuntu
 Step 2 : MAINTAINER Sebastien Douche sdouche@gmail.com
  ---> Using cache
  ---> 1ed956422d1e
-Step 3 : RUN echo "deb http://fr.archive.ubuntu.com/ubuntu quantal main restricted universe multiverse" > /etc/apt/sources.list
+Step 3 : RUN echo "deb http://fr.archive.ubuntu.com/ubuntu quantal main" > /etc/apt/sources.list
  ---> Running in 0f306df45690
  ---> 769ee79eb920
 Step 4 : RUN apt-get update
@@ -503,13 +616,12 @@ Step 7 : EXPOSE 80
  ---> 9d0045d5fa7a
 Successfully built 9d0045d5fa7a
 ```
-
 ---
-# Commande diff
+## Commande diff
 
-La commande diff affiche les différences avec le conteneur père :
+Affiche les différences avec le conteneur père :
 
-```bash
+```xml
 $ sudo docker diff 769ee79eb920
 2013/10/05 03:01:25 GET /v1.5/containers/769ee79eb920/changes
 C /dev
@@ -518,41 +630,37 @@ C /etc/apt/sources.list
 ```
 
 ---
-# Pousser une image sur l'index
+## Commande push
 
-Il faut créer un compte sur l'index (ici sdouche) et pousser sous son compte :
+Pousser une image sur l'index (ici avec le compte sdouche) :
 
-```bash
+```xml
 $ sudo docker push sdouche/nginx
 ```
 ---
-# Commande import / export
+## Commande import / export
 
-Exporter son conteneur (sauvegarde, transfert)
+Exporter :
 
-```bash
+```xml
 $ sudo docker export 9d0045d5fa7a > container-nginx.tgz
 ```
 
-L'importer :
+Importer :
 
-```bash
+```xml
 $ sudo docker import http://example.com/image.tgz example
 $ cat example.tgz | sudo docker import - example
 $ sudo tar -c . | docker import - exampledir
 ```
-
-
 ---
-# Documentation CLI
+## Documentation CLI
 
 Liste des commandes :
 
 http://docs.docker.io/en/latest/commandline/cli/
-
 ---
-
-# API
+## API
 
 http://docs.docker.io/en/latest/api/
 
@@ -560,10 +668,10 @@ http://docs.docker.io/en/latest/api/
 * Feed des evenements
 * Websocket
 
-Note : l'API est utilisée par la CLI
+**Note** : l'API est utilisée par la CLI
 
 ---
-# Clients
+## Clients
 
 * Python (docker-py)
 * Ruby (docker-client, docker-api)
@@ -573,13 +681,14 @@ Note : l'API est utilisée par la CLI
 * Go (go-dockerclient)
 
 ---
-# Exemple avec (docker-py) Python
+## Exemple avec (docker-py) Python
 
 ```python
 import docker
 
 # create client
-docker_client = docker.Client(base_url='unix://var/run/docker.sock', version="1.4")
+docker_client = docker.Client(base_url='unix://var/run/docker.sock',
+                              version="1.4")
 
 # create container
 container = docker_client.create_container('ubuntu', None, detach=True)
@@ -595,54 +704,111 @@ ip = meta.get('NetworkSettings').get("IPAddress")
 # stop container
 docker_client.stop(container_id)
 ```
-
 ---
-# Docker Index
+## Docker Index
 
-Dépôt publique des images (+ metadonnées)
+Dépôt public des images (+ metadonnées)
 
 https://index.docker.io/
 
 ---
-# Registry
+## Registry
 
-Gestion en interne des images
+Index privé
 
 https://github.com/dotcloud/docker-registry
-
 ---
-# GUI
+template: inverse
+# Ecosystème
+---
+## GUI
 
 * Dockland - Yet another docker web UI
+
   https://github.com/dynport/dockland
+
 * Shipyard – a web UI for Docker
+
   https://github.com/ehazlett/shipyard
+
 * DockerUI – Web interface to interact with the Docker Remote API
+
   https://github.com/crosbymichael/dockerui
-
 ---
-# Déploiement
+## Hébergement
 
-* PAAS : dokku / flynn.io / orchadup.com / deis.io
+* flynn
+
+  https://flynn.io/
+
+* Orchad
+
+  https://orchardup.com/
+
+* Stardock
+
+  https://stackdock.com/
+
+* Tutum
+
+  http://www.tutum.co/
+
+* Quay
+
+  https://quay.io/
+---
+## Orchestration
+
+* Serf
+
+  http://www.serfdom.io/
+
+* Maestro
+
+* Shipper
+---
+## Intégration continue
+
+* Shippable
+
+  https://www.shippable.com/
+
+* Drone
+
+  https://github.com/drone/drone
+---
+## Environnement de dev
+
+* fig
+
+  http://orchardup.github.io/fig/
+---
+## Autres
+
 * IAAS : OpenStack
+
 * SCM : Chef / Puppet / Salt / Ansible
+
 * OS : CoreOS
-* Orchestration : Maestro / Shipper
-
 ---
-# Docker 1.0
+## Docker 1.0
 
- Etendre les technologies utilisées :
+Ce qui est prévu :
 
 * Architecture pluggable
-* Gestion des Zones (Solaris FreeBSD), BSD Jails, OpenVZ...
+* Gestion des Zones (Solaris FreeBSD), BSD Jails, OpenVZ
+* Meilleur support des distributions non Ubuntu
 * Support de Btrfs
-* Meilleur support des distributions (RedHat...)
+* Intégration avec Libvirt
+* Gestion des Index privés payants sur docker.io
+---
+template: inverse
+# Démo
 ---
 
 ## That's all folks!
     </textarea>
-    <script src="remark-0.5.9.min.js" type="text/javascript"></script>
+    <script src="remark.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       var hljs = remark.highlighter.engine;
     </script>
