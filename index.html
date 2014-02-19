@@ -14,7 +14,7 @@ layout: true
 class: center, middle, inverse
 ---
 # Introduction à Docker
-## Sébastien Douche @sdouche
+## Sébastien Douche — @sdouche
 .footnote[https://github.com/sdouche/presentation-docker]
 ---
 layout: false
@@ -22,7 +22,7 @@ layout: false
   ## Qui suis je ?
 ]
 .right-column[
-39 ans. Français. Pas trés intelligent mais j'aime comprendre.
+39 ans. Français. Pas très intelligent mais j'aime comprendre.
 
 - Geek depuis 1984
 
@@ -42,7 +42,7 @@ layout: false
 
 - Motard (Honda CBR RR)
 
-- Aime l'humour noir, le second degrés et les blagues pourries
+- Aime l'humour noir, le second degré et les blagues pourries
 ]
 ---
 template: inverse
@@ -81,7 +81,7 @@ class: center, middle
 class: middle
 Invention de Malcom McLean (1914-2001), magnat dans le transport routier, qui avait calculé que le coût passerait de 5.83$ la tonne à 0.16$ en passant par Ideal-X. Les containeurs ont donc **réduit les coûts de transport cargo de 90%**.
 
-Il fonda la société SeaLand, racheté en 1999 par Maersk, leader mondial du conteneur
+Il fonda la société SeaLand, rachetée en 1999 par Maersk, leader mondial du conteneur.
 ---
 class: center, middle
 ![](img/book.jpeg)
@@ -164,9 +164,9 @@ class: center, middle
 ---
 ## Le Mount namespace (Linux 2.4.19)
 
-Gère l'isolation des points de montage du système de fichier vu par un groupe de process :
+Gère l'isolation des points de montage du système de fichier vus par un groupe de process :
 
-* les points de montage ne sont plus globaux mais spécifique au namespace
+* les points de montage ne sont plus globaux mais spécifiques au namespace
 * les points de montage peuvent être propagés
 * racine propre (chroot)
 ---
@@ -175,10 +175,10 @@ Gère l'isolation des points de montage du système de fichier vu par un groupe 
 Gère l'isolation des ID de process :
 
 * PID 1 init-like par namespace
-* chaque namespace a propre numération PID (isolation du hôte)
+* chaque namespace a sa propre numération PID (isolation de l'hôte)
 * le process d'un namespace ne peut envoyer de systemcall sur un autre process d'un autre PID namespace
 * gestion de pseudo-filesystem (ex : /proc) vu par le PID namespace qui le monte
-* un process possède 2 PID : un dans le namespace et un en dehors (process vu de l'hôte)
+* un process possède plusieurs PID : un dans le namespace, un en dehors (process vu par l'hôte), davantage en cas de namespaces imbriqués
 ---
 ## Le Net namespace (Linux 2.6.19-2.6.24)
 
@@ -191,7 +191,7 @@ Gère l'isolation du réseau. Chacun possèdant :
 * son répertoire /proc/net
 * INADDR_ANY (0.0.0.0)
 
-.footnote[Il est possible de créer des «pair interfaces» (visible de l'intérieur et de l'extérieur)]
+.footnote[Il est possible de créer des «pair interfaces» (visibles de l'intérieur et de l'extérieur)]
 ---
 ## Le User namespace (Linux 2.6.23-3.8)
 
@@ -220,7 +220,7 @@ template: inverse
 ## Control Groups (cgroups)
 ---
 class: center, middle
-## Service fournit par le noyau pour gérer la limitation de ressource
+## Service fourni par le noyau pour gérer la limitation de ressource
 ---
 class: center, middle
 ## On peut voir cela comnme un ulimit pour un groupe de process.
@@ -668,7 +668,7 @@ http://docs.docker.io/en/latest/api/
 * Feed des evenements
 * Websocket
 
-**Note** : l'API est utilisée par la CLI
+**Note** : la CLI n'est qu'un client pour l'API
 
 ---
 ## Clients
@@ -741,7 +741,7 @@ template: inverse
 
   https://flynn.io/
 
-* Orchad
+* Orchard
 
   https://orchardup.com/
 
@@ -763,8 +763,10 @@ template: inverse
 
   http://www.serfdom.io/
 
-* Maestro
+* Maestro NG
 
+  https://github.com/signalfuse/maestro-ng
+  
 * Shipper
 ---
 ## Intégration continue
@@ -796,9 +798,9 @@ template: inverse
 Ce qui est prévu :
 
 * Architecture pluggable
-* Gestion des Zones (Solaris FreeBSD), BSD Jails, OpenVZ
+* Support OpenVZ, FreeBSD Jails, Solaris Zones
 * Meilleur support des distributions non Ubuntu
-* Support de Btrfs
+* Support de BTRFS (déjà là en beta)
 * Intégration avec Libvirt
 * Gestion des Index privés payants sur docker.io
 ---
