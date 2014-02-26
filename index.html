@@ -587,7 +587,7 @@ template: inverse
 # Dockerfile
 ---
 class: center, middle
-## Langage de script pour automatiser la création d'images.
+## Langage de script pour automatiser la création d'images
 
 Tutorial : http://www.docker.io/learn/dockerfile/
 
@@ -615,7 +615,8 @@ Step 1 : FROM ubuntu
 Step 2 : MAINTAINER Sebastien Douche sdouche@gmail.com
  ---> Using cache
  ---> 1ed956422d1e
-Step 3 : RUN echo "deb http://fr.archive.ubuntu.com/ubuntu quantal main" > /etc/apt/sources.list
+Step 3 : RUN echo "deb http://fr.archive.ubuntu.com/ubuntu quantal main"
+                  > /etc/apt/sources.list
  ---> Running in 0f306df45690
  ---> 769ee79eb920
 Step 4 : RUN apt-get update
