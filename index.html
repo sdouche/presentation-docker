@@ -489,6 +489,22 @@ $ echo $ID
 f684fc88aec3
 ```
 ---
+## Commande run (4)
+
+On peut nommer un conteneur :
+
+```xml
+$ sudo docker run -d -name redis sdouche/redis
+```
+---
+## Commande run (5)
+
+Et lier deux conteneurs :
+
+```xml
+$ sudo docker run -t -i -link redis:db -name webapp ubuntu bash
+```
+---
 ## Commande ps
 
 Lister les conteneurs lançés :
