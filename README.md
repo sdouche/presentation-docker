@@ -1,7 +1,15 @@
 presentation-docker
 ===================
 
-Pour visualiser cette présentation :
+Visualiser cette présentation en ligne
+--------------------------------------
+
+```bash
+$ firefox http://sdouche.github.io/presentation-docker
+```
+
+Visualiser cette présentation en local
+--------------------------------------
 
 1. Clonez le dépot
 
